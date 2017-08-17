@@ -171,7 +171,7 @@ if len([f for f in os.listdir('./input') if (f.endswith('.txt') or f.endswith(
     log = open(sys.argv[0].split('.')[0] + '.log', 'a', encoding='utf-8')
     log.write(time.strftime('%d/%m/%Y-%H:%M:%S - Starting execution of program: ' + sys.argv[0] + '\n'))
 
-    csv_full = open('./output/full.csv', 'a+', encoding='utf-8')
+    csv_full = open('./output/full.csv', 'a+', encoding='latin-1')
     if csv_full.tell() == 0:
         csv_full.write(FIRSTLINE)
 
@@ -204,7 +204,7 @@ if len([f for f in os.listdir('./input') if (f.endswith('.txt') or f.endswith(
             erro_processamento = False
             log.write(time.strftime('%d/%m/%Y-%H:%M:%S  -  Parsing original file ' + file + '...\n'))
             f_out = open('./output/' + file[1:-4] + '_parsed.txt', 'w',
-                         encoding='utf-8')
+                         encoding='latin-1')
             for line in open('./input/' + file, 'r', encoding='latin-1'):
                 line = line.lstrip(' ')
                 novo_despacho = False #ainda não sei se é uma linha válida como despacho
@@ -242,7 +242,7 @@ if len([f for f in os.listdir('./input') if (f.endswith('.txt') or f.endswith(
                     last = '(Im)'
                     despacho.im = line[5:-1]        #Interessado???
 
-                elif re.match('\(Re\)', line, 0):                                   #Requisitante
+                elif re.match('\(Re\)', line, 0):   #Requisitante
                     f_out.write(line)
                     last = '(Re)'
                     despacho.requisitante = line.split(';', -1)
@@ -285,8 +285,7 @@ if len([f for f in os.listdir('./input') if (f.endswith('.txt') or f.endswith(
                     for i in range(1, len(pointer)):
                         despacho.numero_pedido += pointer[i]
                     if len(despacho.numero_pedido) == 16 and despacho.numero_pedido.find('-') != -1:
-                        despacho.numero_pedido = despacho.numero_pedido[
-                                                                                                                           0:-2]
+                        despacho.numero_pedido = despacho.numero_pedido[0:-2]
 
                 elif re.match('\(22\)', line, 0):
                     f_out.write(line)
@@ -319,9 +318,15 @@ if len([f for f in os.listdir('./input') if (f.endswith('.txt') or f.endswith(
                     despacho.data45_concessao = line[5:-1]  #Data da concessão da patente/certificado & Data de publicação do desenho industrial (após concessão)
 
                 elif re.match('\(51\)', line, 0):
-                    f_out.write(line)
+                    f_out.write(line
+                                .replace('; ', ',')
+                                .replace(';', ',')
+                                .replace(', ', ','))
                     last = '(51)'
-                    despacho.classificacao_int = line[5:-1] #Classificação internacional
+                    despacho.classificacao_int = line[5:-1]\
+                        .replace('; ', ',')\
+                        .replace(';', ',')\
+                        .replace(', ', ',') #Classificação internacional
 
                 elif re.match('\(52\)', line, 0) and last != '(57)':
                     f_out.write(line)
@@ -329,19 +334,19 @@ if len([f for f in os.listdir('./input') if (f.endswith('.txt') or f.endswith(
                     despacho.classificacao_nac = line[5:-1] #Classificação nacional
 
                 elif re.match('\(53\)', line, 0):
-                    f_out.write(line)
+                    f_out.write(line.replace('|', '_'))
                     last = '(53)'
-                    despacho.nome_programa = line[5:-1]            #Título
+                    despacho.nome_programa = line[5:-1].replace('|', '_')  #Título
 
                 elif re.match('\(54\)', line, 0):
-                    f_out.write(line)
+                    f_out.write(line.replace('|', '_'))
                     last = '(54)'
-                    despacho.titulo = line[5:-1]            #Título
+                    despacho.titulo = line[5:-1].replace('|', '_')  #Título
 
                 elif re.match('\(57\)', line, 0):
-                    f_out.write(line)
+                    f_out.write(line.replace('|', '_'))
                     last = '(57)'
-                    despacho.resumo = line[5:-1]            #Resumo
+                    despacho.resumo = line[5:-1].replace('|', '_')  #Resumo
 
                 elif re.match('\(61\)', line, 0):
                     f_out.write(line)
@@ -717,7 +722,7 @@ if len([f for f in os.listdir('./input') if (f.endswith('.txt') or f.endswith(
                                     '_parsed.txt has been saved.\n'))
             log.write(time.strftime('%d/%m/%Y-%H:%M:%S  -  Saving .csv for the files ' + file + '...\n'))
             csv_out = open('./output/' + file[1:-4] + '.csv', 'w',
-                           encoding='utf-8')
+                           encoding='latin-1')
             csv_out.write(FIRSTLINE)
 
             #Inserção dos despachos, separados pelo SEPARADOR, no arquivo .csv
@@ -779,7 +784,9 @@ if len([f for f in os.listdir('./input') if (f.endswith('.txt') or f.endswith(
             #Relatório final sobre a quantidade de despachos processados em cada RPI
             print(str(len(rpi)) + ' despachos foram processados na RPI no.' + file[1:-4])
             log.write(time.strftime('%d/%m/%Y-%H:%M:%S  -  ' + str(len(rpi)) + ' dispatchs were parsed on RPI no.' + file[1:-4] + '\n'))
-            if not(erro_processamento): os.remove('./input/'+file)
+            # if not(erro_processamento): os.remove('./input/'+file)
+            if not (erro_processamento): os.rename('./input/' + file,
+                                                   './imported/' + file)
 
     # db.commit()
     # cursor.close()
