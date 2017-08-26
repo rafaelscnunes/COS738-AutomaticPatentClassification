@@ -3,8 +3,10 @@ Machine Learning System to classify a Patent Request based on it's title and
 resume, using INPI-Brazil RPI Patent text data for training the model.
 
 ## Modules
-1. import  - parses all .txt or .TXT on ./input and generates ./output/
+1. download - downloads the last available RPI on http://revistas.inpi.gov.br
+2. import  - parses all .txt or .TXT on ./input and generates ./output/
 \<RPI>.csv, \<RPI>_parsed.txt and ./import.log;
+
 
 ## Inputs
 1. ./input/\*.txt or ./input/\*.TXT - RPI (Revista da Propriedade 
@@ -15,7 +17,11 @@ Industrial) one per file;
 2. ./output/\<RPI>_parsed.txt - processed RPI file (debug)
 3. ./output/\<RPI>.csv - records extracted from <RPI>.txt file
 4. ./output/full.csv - all records extracted from all <RPI>.txt
+5. ./imported/\<RPI>.txt - archives all imported .txt files
 
 ## References
 1. http://revistas.inpi.gov.br - download Patent section of RPI (.txt's) 
+2. http://dados.gov.br/dataset/revista-da-propriedade-industrial-rpi
+/resource/4288c07c-f9bd-45d7-8fc0-56b4fc1f5c82 - informations on how to get 
+RPI files
  
