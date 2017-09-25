@@ -199,58 +199,27 @@ def main():
     # plt.show()
 
 
-    # # ### AdaBoost Regressor
-    # from sklearn.tree import DecisionTreeRegressor
-    # from sklearn.ensemble import AdaBoostRegressor
-    #
-    # t0 = time()
-    # print('Training and predicting classes using Ada Boost...')
-    # classifier = AdaBoostRegressor(DecisionTreeRegressor(max_depth = 4),
-    #                                n_estimators = 300, random_state =
-    #                                np.random.RandomState(1))
-    # y_pred = classifier.fit(X_train, y_train).predict(X_test)
-    # print('done in %0.3fs.' % (time() - t0))
-    # # Printing accuracy
-    # acc = accuracy_score(y_test, y_pred)
-    # print('Accuracy: ', str(acc))
-    # # Making the Confusion Matrix
-    # cm = confusion_matrix(y_test, y_pred)
-    # print(cm)
-    # # np.set_printoptions(precision=2)
-    # # class_names = ['A','B','C','D','E','F','G','H']
-    # # plt.figure(figsize=(12,6))
-    # # plot_confusion_matrix(cm, classes=class_names, title='Confusion matrix')
-    # # plt.show()
+    ### Multi-layer Perceptron
+    from sklearn.neural_network import MLPClassifier
 
+    t0 = time()
+    print('Training and predicting classes using Randon Forest Classifier...')
+    classifier = MLPClassifier(hidden_layer_sizes=(100, 50), verbose=False)
+    y_pred = classifier.fit(X_train, y_train).predict(X_test)
+    print('done in %0.3fs.' % (time() - t0))
 
-    # # ### Support Vector Classifier (SVC) using CrossValidation
-    # from sklearn.svm import SVC
-    # from sklearn.model_selection import cross_val_predict
-    #
-    # # from sklearn.datasets import load_digits
-    # # digits = load_digits()
-    # # X, y = digits.data,digits.target
-    # # %timeit single_core_learning = cross_val_score(SVC(), X, y, cv=20, n_jobs=1)
-    # # %timeit multi_core_learning = cross_val_score(SVC(), X, y, cv=20, n_jobs=-1)
-    #
-    # t0 = time()
-    # print('Training and predicting classes using SVC with CrossValidation...')
-    # classifier = SVC()
-    # y_pred = cross_val_predict(classifier, X_concatenated, y_encoded, cv = 3,
-    #                            n_jobs = -1, verbose = 2)
-    # print('done in %0.3fs.' % (time() - t0))
-    # # Printing accuracy
-    # acc = accuracy_score(y_test, y_pred)
-    # print('Accuracy: ', str(acc))
-    # # Making the Confusion Matrix
-    # cm = confusion_matrix(y_test, y_pred)
-    # print(cm)
-    # # np.set_printoptions(precision=2)
-    # # class_names = ['A','B','C','D','E','F','G','H']
-    # # plt.figure(figsize=(12,6))
-    # # plot_confusion_matrix(cm, classes=class_names, title='Confusion matrix')
-    # # plt.show()
+    # Printing accuracy
+    acc = accuracy_score(y_test, y_pred)
+    print('Accuracy: ', str(acc))
 
+    # Making the Confusion Matrix
+    cm = confusion_matrix(y_test, y_pred)
+    print(cm)
+    # np.set_printoptions(precision=2)
+    # class_names = ['A','B','C','D','E','F','G','H']
+    # plt.figure(figsize=(12,6))
+    # plot_confusion_matrix(cm, classes=class_names, title='Confusion matrix')
+    # plt.show()
 
 if __name__ == '__main__':
     main()
