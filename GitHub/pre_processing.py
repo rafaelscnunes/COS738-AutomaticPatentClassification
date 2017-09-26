@@ -14,7 +14,7 @@ t = time.process_time()
 count = 0
 MIN_WORD_LENGHT = 2
 input_csv = "./github/output/full.csv"
-output_csv = "./github/output/dataset.csv"
+output_csv = "./github/output/dataset_ipc_first.csv"
 # stemmer = nltk.stem.PorterStemmer()
 stemmer = nltk.stem.RSLPStemmer()
 stop_words = []
@@ -47,6 +47,10 @@ if line.lower() == 'número do pedido|classificação ' \
             patent_base[line.split('|')[0]]['resume'] = ' '.join(words)
             patent_base[line.split('|')[0]]['rpi'] = int(line.split('|')[6][
                                                          :-1])
+            # print(line.split('|')[0] + ': '
+            #       + patent_base[line.split('|')[0]]['title'] + '|'
+            #       + patent_base[line.split('|')[0]]['resume'] + '|'
+            #       + str(patent_base[line.split('|')[0]]['ipc']))
         else:
             # print('O pedido %s já foi processado na RPI %d!!' % (line.split(
             #         '|')[0], patent_base[line.split('|')[0]]['rpi']))
@@ -78,22 +82,28 @@ else:
     print('Arquivo full.csv inexistente ou corrompido. Nada foi feito!')
 
 out_csv = open(output_csv, 'w', encoding = 'latin-1')
-out_csv.write('title|resume|ipc|ipc1|ipc2|ipc3|ipc4\n')
+out_csv.write('title|resume|ipc\n')
 for patent in patent_base:
-    for ipc_class in range(0, len(patent_base[patent]['ipc'])):
-        out_csv.write(patent_base[patent]['title'] + '|'
-                      + patent_base[patent]['resume'] + '|'
-                      + patent_base[patent]['ipc'][ipc_class] + '|'
-                      + patent_base[patent]['ipc'][ipc_class][:1] + '|'
-                      + patent_base[patent]['ipc'][ipc_class][1:3] + '|'
-                      + patent_base[patent]['ipc'][ipc_class][3:4] + '|'
-                      + patent_base[patent]['ipc'][ipc_class][5:] + '\n')
-out_csv.close()
+    out_csv.write(patent_base[patent]['title'] + '|'
+                  + patent_base[patent]['resume'] + '|'
+                  + patent_base[patent]['ipc'][0] + '\n')
+    # print(patent_base[patent]['title'] + '|'
+    #               + patent_base[patent]['resume'] + '|'
+    #               + patent_base[patent]['ipc'][0] + '\n')
+    # for ipc_class in range(0, len(patent_base[patent]['ipc'])):
+    #     out_csv.write(patent_base[patent]['title'] + '|'
+    #                   + patent_base[patent]['resume'] + '|'
+    #                   + patent_base[patent]['ipc'][ipc_class] + '|'
+    #                   + patent_base[patent]['ipc'][ipc_class][:1] + '|'
+    #                   + patent_base[patent]['ipc'][ipc_class][1:3] + '|'
+    #                   + patent_base[patent]['ipc'][ipc_class][3:4] + '|'
+    #                   + patent_base[patent]['ipc'][ipc_class][5:] + '\n')
+# out_csv.close()
 tt = time.process_time() - t
 # print('Tempo total de processamento: %f segundos' % tt)
 
 # performance log to estimate time of processing full.csv completely
-f_log = open('./github/pre_processing.log', 'a', encoding = 'utf-8')
+f_log = open('./github/pre_processing2.log', 'a', encoding = 'utf-8')
 print('count = %d' %count)
 f_log.write('count = %d\n' %count)
 print('Tempo total de processamento: %f segundos' % tt)
