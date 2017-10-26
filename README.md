@@ -30,3 +30,5 @@ Industrial) one per file;
 2. http://dados.gov.br/dataset/revista-da-propriedade-industrial-rpi
 /resource/4288c07c-f9bd-45d7-8fc0-56b4fc1f5c82 - informations on how to get 
 RPI files
+
+[![Waffle.io - Issues in progress](https://badge.waffle.io/rafaelscnunes/COS738-AutomaticPatentClassification.png?label=in%20progress&title=In%20Progress)](http://waffle.io/rafaelscnunes/COS738-AutomaticPatentClassification)
