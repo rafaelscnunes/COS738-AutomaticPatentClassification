@@ -9,8 +9,8 @@ resume, using INPI-Brazil RPI Patent text data for training the model.
 2. import  - parses all .txt or .TXT on ./input and generates ./output/
 \<RPI>.csv, \<RPI>_parsed.txt and ./import.log;
 3. pre_processing - based on full.csv generates dataset.csv containing 
-title|resume|ipc, with stemmed text using nltk.stem
-.RSLPStemmer() and considering only the first IPC label of multi-label patent
+title|resume|ipc, with stemmed text using nltk.stem.RSLPStemmer()
+and considering only the first IPC label of multi-label patent
 applications.
 
 ## Inputs
