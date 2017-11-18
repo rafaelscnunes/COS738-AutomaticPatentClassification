@@ -27,6 +27,4 @@ Industrial) one RPI per file;
 
 ## References
 1. http://revistas.inpi.gov.br - download Patent section of RPI (.txt's) 
-2. http://dados.gov.br/dataset/revista-da-propriedade-industrial-rpi
-/resource/4288c07c-f9bd-45d7-8fc0-56b4fc1f5c82 - informations on how to get 
-RPI files
+2. http://dados.gov.br/dataset/revista-da-propriedade-industrial-rpi/resource/4288c07c-f9bd-45d7-8fc0-56b4fc1f5c82 - informations on how to get RPI files
