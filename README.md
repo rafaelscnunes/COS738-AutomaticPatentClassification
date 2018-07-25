@@ -5,9 +5,9 @@ Machine Learning System to classify a Patent Application based on it's title and
 resume, using INPI-Brazil RPI Patent text data for training the model.
 
 ## Modules
-1. download - downloads the last available RPI on http://revistas.inpi.gov.br
+1. download - downloads the last available RPIs on http://revistas.inpi.gov.br
 2. import  - parses all .txt or .TXT on ./input and generates ./output/
-\<RPI>.csv, \<RPI>_parsed.txt and ./import.log;
+\<RPI>.csv, \<RPI>_parsed.txt and full.csv; also generates ./import.log;
 3. pre_processing - based on full.csv generates dataset_ipc_first.csv containing 
 title|resume|ipc, with stemmed text using nltk.stem.RSLPStemmer()
 and considering only the first IPC label of multi-label patent
