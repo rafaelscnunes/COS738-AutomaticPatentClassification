@@ -1,5 +1,3 @@
-[![Waffle.io - Issues in progress](https://badge.waffle.io/rafaelscnunes/COS738-AutomaticPatentClassification.png?label=in%20progress&title=In%20Progress)](http://waffle.io/rafaelscnunes/COS738-AutomaticPatentClassification)
-
 # Automatic Patent Classification
 Machine Learning System to classify a Patent Application based on it's title and 
 resume, using INPI-Brazil RPI Patent text data for training the model.
